@@ -16,6 +16,8 @@ In Nomadcoder
   - map함수
     + rendering에 사용.
     + array를 취하고 원하는 array 반환.
+    + map을 이용해 array안의 값을 접근할 수 있음.
+    + map에 있는 각 item은 key가 필요함.
   - proptypes는 값이 잘 들어있는지를 볼 때 유용함.
     + ex) rating: PropTypes.number.isRequired
     + -> 이때 rating은 number tpye이어야 하고, 값이 무조건 존재해야함.
