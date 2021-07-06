@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Movie from "./Movie";
 
 class App extends React.Component {
   state = {
@@ -7,7 +8,8 @@ class App extends React.Component {
     movies: []
   };
   getMovies = async () => {
-    const movies = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json");
+    const {data: { data :{ movies }}} = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating");
+    this.setState({movies, isLoading: false })  // state의 movie: axios의 movie
   }
   componentDidMount(){
     this.getMovies(); 
@@ -15,8 +17,11 @@ class App extends React.Component {
     // 따라서 getMovies 함수에 async(비동기)을 달아주고, await을 axios 앞에 써줌
   }
   render(){ // java의 main같은 역할
-    const { isLoading } = this.state;
-    return <div>{isLoading ? "Loading...":"We are ready"}</div>
+    const { isLoading, movies } = this.state;
+    return <div>{isLoading ? "Loading...": movies.map(movie => {
+      console.log(movie);
+      return <Movie id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} poster={movie.medium_cover_image} />
+    })}</div>;
   }
 }
 
